@@ -1,0 +1,36 @@
+<!-- templates/base.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-g">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course Scheduler</title>
+
+  <!-- This is the ONLY stylesheet that should be linked -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="main-container">
+    <nav>
+      <ul>
+        <li><strong>Course Scheduler</strong></li>
+      </ul>
+      <ul>
+        <li><a href="{{ url_for('list_schedules') }}">Schedules</a></li>
+        <li><a href="{{ url_for('report') }}">Report</a></li>
+      </ul>
+    </nav>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <aside>
+              {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+            </aside>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

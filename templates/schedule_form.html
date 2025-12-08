@@ -1,0 +1,46 @@
+<!-- templates/schedule_form.html -->
+{% extends "base.html" %}
+{% block content %}
+  <div class="content-card">
+    <h2>{{ action }} Schedule</h2>
+    <form method="post">
+      <!-- Student Input -->
+      <label for="student_name">Student Name</label>
+      <input list="student-list" id="student_name" name="student_name" required
+             placeholder="Type or select a student"
+             value="{{ schedule.student_name if schedule else '' }}">
+      <datalist id="student-list">
+        {% for student in students %}
+          <option value="{{ student.name }}">
+        {% endfor %}
+      </datalist>
+
+      <!-- Course Dropdown -->
+      <label for="course_id">Course</label>
+      <select id="course_id" name="course_id" required>
+        {% for course in courses %}
+          <option value="{{ course.course_id }}" {% if schedule and schedule.course_id == course.course_id %}selected{% endif %}>
+            {{ course.title }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <!-- NEW: Instructor Input -->
+      <label for="instructor_name">Instructor Name</label>
+      <input list="instructor-list" id="instructor_name" name="instructor_name" required
+             placeholder="Type or select an instructor"
+             value="{{ schedule.instructor_name if schedule else '' }}">
+      <datalist id="instructor-list">
+        {% for instructor in instructors %}
+          <option value="{{ instructor.name }}">
+        {% endfor %}
+      </datalist>
+
+      <!-- Semester Input -->
+      <label for="semester">Semester</label>
+      <input type="text" id="semester" name="semester" placeholder="e.g., Fall 2025" required value="{{ schedule.semester if schedule }}">
+
+      <button type="submit">{{ action }} Schedule</button>
+    </form>
+  </div>
+{% endblock %}

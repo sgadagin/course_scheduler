@@ -1,0 +1,33 @@
+<!-- templates/schedules.html -->
+{% extends "base.html" %}
+{% block content %}
+  <h2>Current Schedules</h2>
+  <a href="{{ url_for('create_schedule') }}" role="button">Schedule a New Course</a>
+  <div class="content-card">
+    <table>
+      <thead>
+        <!-- Add "Instructor" to the table header -->
+        <tr><th>Student</th><th>Course</th><th>Instructor</th><th>Semester</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for item in schedules %}
+        <tr>
+          <td>{{ item.student_name }}</td>
+          <td>{{ item.course_title }}</td>
+          <!-- Display the instructor's name -->
+          <td>{{ item.instructor_name or 'N/A' }}</td>
+          <td>{{ item.semester }}</td>
+          <td class="actions">
+            <a href="{{ url_for('edit_schedule', schedule_id=item.schedule_id) }}">Edit</a>
+            <form action="{{ url_for('delete_schedule', schedule_id=item.schedule_id) }}" method="post" onsubmit="return confirm('Are you sure?');">
+              <button type="submit">Drop</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5">No courses scheduled yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

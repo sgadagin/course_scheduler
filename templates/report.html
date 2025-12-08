@@ -1,0 +1,73 @@
+<!-- templates/report.html -->
+{% extends "base.html" %}
+{% block content %}
+  <h2>Schedules Report</h2>
+
+  <!-- Card for the filter form -->
+  <div class="content-card">
+    <form method="get" class="filter-form">
+      <div class="form-grid">
+        <label>Student
+          <select name="student_id">
+            <option value="">Any Student</option>
+            {% for s in students %}
+              <option value="{{ s.student_id }}" {% if filters.student_id == s.student_id %}selected{% endif %}>
+                {{ s.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Course
+          <select name="course_id">
+            <option value="">Any Course</option>
+            {% for c in courses %}
+              <option value="{{ c.course_id }}" {% if filters.course_id == c.course_id %}selected{% endif %}>
+                {{ c.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <!-- Instructor Filter Dropdown -->
+        <label>Instructor
+          <select name="instructor_id">
+            <option value="">Any Instructor</option>
+            {% for i in instructors %}
+              <option value="{{ i.instructor_id }}" {% if filters.instructor_id == i.instructor_id %}selected{% endif %}>
+                {{ i.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>Semester
+          <input name="semester" placeholder="e.g., Fall 2025" value="{{ filters.semester or '' }}">
+        </label>
+      </div>
+      <button type="submit">Filter Report</button>
+    </form>
+  </div>
+
+  <h3>Report Results ({{ rows|length }} found)</h3>
+
+  <!-- Card for the results table -->
+  <div class="content-card">
+    <table>
+      <thead>
+        <tr><th>Student</th><th>Course</th><th>Instructor</th><th>Semester</th></tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row.student_name }}</td>
+          <td>{{ row.course_title }}</td>
+          <td>{{ row.instructor_name or 'N/A' }}</td>
+          <td>{{ row.semester }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">No records match your filter criteria.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
