@@ -13,8 +13,8 @@ def get_db():
     return conn
 
 # --- Flask App ---
-app = Flask(__name__)
 #comment just for fun !!!
+#this should cause merge conflicts later on
 app.secret_key = "a_very_secret_key"
 
 # --- Main Route ---
