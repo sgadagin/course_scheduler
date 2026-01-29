@@ -16,6 +16,7 @@ def get_db():
 app = Flask(__name__)
 #comment just for fun !!!
 app.secret_key = "a_very_secret_key"
+#random comment
 
 # --- Main Route ---
 @app.route("/")
