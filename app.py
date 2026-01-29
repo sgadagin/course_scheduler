@@ -16,6 +16,7 @@ def get_db():
 #comment just for fun !!!
 #this should cause merge conflicts later on
 app.secret_key = "a_very_secret_key"
+#random comment
 
 # --- Main Route ---
 @app.route("/")
