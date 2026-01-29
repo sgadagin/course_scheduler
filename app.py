@@ -7,12 +7,14 @@ DB_PATH = "scheduler.db"
 
 # --- Database Helper ---
 def get_db():
+    # this method connects to an sqlite database
     conn = sqlite3.connect(DB_PATH, isolation_level=None)
     conn.row_factory = sqlite3.Row
     return conn
 
 # --- Flask App ---
 app = Flask(__name__)
+#comment just for fun !!!
 app.secret_key = "a_very_secret_key"
 
 # --- Main Route ---
